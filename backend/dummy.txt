@@ -1,0 +1,4 @@
+This is a sample legal agreement.
+1. Termination: This agreement may be terminated by either party with 30 days notice.
+2. Indemnity: The user agrees to indemnify the company against all losses, even those caused by the company's own negligence.
+3. Jurisdiction: This agreement is governed by the laws of Mars.
