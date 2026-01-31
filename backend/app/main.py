@@ -93,8 +93,8 @@ app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
 
 # TODO: Add more routers as needed
-# from app.api import compare
-# app.include_router(compare.router, prefix="/api/compare", tags=["Compare Laws"])
+from app.api import compare
+app.include_router(compare.router, prefix="/api/compare", tags=["Compare Laws"])
 
 
 if __name__ == "__main__":

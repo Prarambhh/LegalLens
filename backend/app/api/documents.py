@@ -61,25 +61,11 @@ async def chat_with_document(
     Chat with a document, supplemented by external Case Law search.
     """
     try:
-        # 1. Search for relevant Case Laws (RAG)
-        search_service = SearchService(db)
-        case_laws = await search_service.search_case_laws(request.query, top_k=3)
-        
-        # Format case citations for the prompt
-        case_context = "\n\n".join([
-            f"Case: {c.title}\nSnippet: {c.content}..." 
-            for c in case_laws
-        ])
-
         # 2. Generate Answer using LLM
-        prompt_template = """You are an expert Legal AI Assistant. Answer the user's question based PRIMARILY on the provided Document Text.
-        HOWEVER, you must also cross-reference the provided "Relevant Case Laws" to support your analysis or point out contradictions.
+        prompt_template = """You are an expert Legal AI Assistant. Answer the user's question based ONLY on the provided Document Text.
 
         uploaded_document_text:
         {doc_text}
-
-        relevant_case_laws:
-        {case_context}
 
         user_query:
         {query}
@@ -94,19 +80,12 @@ async def chat_with_document(
         
         answer = await chain.ainvoke({
             "doc_text": request.document_text[:50000], # Context limit safety
-            "case_context": case_context,
             "query": request.query
         })
 
         return DocumentChatResponse(
             answer=answer,
-            citations=[
-                CaseLawCitation(
-                    title=c.title or "Unknown Case",
-                    snippet=c.content[:200],
-                    similarity=c.similarity_score
-                ) for c in case_laws
-            ]
+            citations=[]
         )
 
     except Exception as e:

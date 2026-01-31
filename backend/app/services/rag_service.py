@@ -10,7 +10,7 @@ from enum import Enum
 
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import StrOutputParser
+from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import get_settings
@@ -209,22 +209,39 @@ Content: {content}
     ) -> str:
         """Generate answer using LLM with context."""
         # Customize prompt based on intent
+        system_instruction = self.SYSTEM_PROMPT
         user_prompt = query
+        
         if intent == QueryIntent.COMPARISON:
             user_prompt = f"Compare the old and new law provisions for: {query}"
         elif intent == QueryIntent.DEFINITION:
             user_prompt = f"Define the following legal term: {query}"
         elif intent == QueryIntent.DRAFTING:
-            user_prompt = f"Help draft or guide regarding: {query}"
-        
+            user_prompt = f"Draft the following legal document: {query}"
+            # Relaxed prompt for drafting to allow internal knowledge of formats
+            system_instruction = """You are an expert Indian Legal Drafting Assistant.
+Your task is to draft professional legal documents (Bail Applications, Affidavits, Vakalatnamas, etc.) for Indian Courts.
+1. Use standard legal formats compliant with BNS, BNSS, and CPC.
+2. Include clear placeholders like [CLIENT NAME], [DATE], [COURT NAME] in uppercase.
+3. You may use your internal knowledge for the document structure/format.
+4. If the provided Context contains relevant sections (e.g. Section 483 BNSS), cite them in the content.
+5. Ensure the tone is formal and respectful (e.g., "Most Respectfully Showeth").
+
+CONTEXT FROM LEGAL SECTIONS (Use if relevant):
+{context}"""
+
         prompt = ChatPromptTemplate.from_messages([
-            ("system", self.SYSTEM_PROMPT),
+            ("system", system_instruction),
             ("human", "{query}")
         ])
         
         chain = prompt | self.llm | StrOutputParser()
         
         try:
+            # Note: For drafting, we pass context into the system prompt string above if using f-string, 
+            # or we rely on the prompt template to format it.
+            # Here 'system_instruction' has {context} placeholder.
+            
             result = await chain.ainvoke({
                 "context": context,
                 "query": user_prompt
@@ -348,3 +365,173 @@ Content: {content}
             query_intent=intent,
             is_relevant=True
         )
+
+    async def compare_laws(self, query: str) -> dict:
+        """
+        Compare old vs new law provisions.
+        Returns structured data for frontend comparison view.
+        """
+    async def compare_laws(self, query: str) -> dict:
+        """
+        Compare old vs new law provisions.
+        Returns structured data for frontend comparison view.
+        """
+        # Step 1: Identify Target Sections using LLM
+        identify_prompt = """You are an expert in Indian Law Transition (IPC -> BNS, CrPC -> BNSS, IEA -> BSA).
+        Identify the corresponding section mapping using your internal legal knowledge.
+        
+        Query: {query}
+        
+        Examples:
+        - IPC 302 (Murder) -> BNS 103
+        - IPC 420 (Cheating) -> BNS 318
+        - IPC 320 (Grievous Hurt) -> BNS 116 (or 117)
+        - IPC 376 (Rape) -> BNS 64
+        
+        Respond with raw JSON only. Do not add markdown backticks.
+        {{
+            "old_act": "Act Name (IPC/CrPC/IEA)",
+            "old_section": "Section Number",
+            "new_act": "Act Name (BNS/BNSS/BSA)", 
+            "new_section": "Section Number",
+            "is_found": true
+        }}
+        """
+        
+        try:
+            import json
+            prompt = ChatPromptTemplate.from_template(identify_prompt)
+            # Use StrOutputParser + Parse JSON manually to handle model chatter
+            chain = prompt | self.classifier_llm | StrOutputParser()
+            result_str = await chain.ainvoke({"query": query})
+            
+            # Extract JSON 
+            result_str = result_str.strip()
+            
+            if "```json" in result_str:
+                result_str = result_str.split("```json")[1].split("```")[0]
+            elif "```" in result_str:
+                result_str = result_str.split("```")[1].split("```")[0]
+            elif "{" in result_str:
+                start = result_str.find("{")
+                end = result_str.rfind("}") + 1
+                result_str = result_str[start:end]
+                
+            target = json.loads(result_str)
+            
+            if not target.get("is_found"):
+                return None
+                
+            old_act_name = target['old_act']
+            old_sec_num = target['old_section']
+            new_act_name = target['new_act']
+            new_sec_num = target['new_section']
+            
+            # Map short names to full names for better LLM context
+            full_names = {
+                "BNS": "Bharatiya Nyaya Sanhita 2023",
+                "BNSS": "Bharatiya Nagarik Suraksha Sanhita 2023",
+                "BSA": "Bharatiya Sakshya Adhiniyam 2023",
+                "IPC": "Indian Penal Code 1860",
+                "CrPC": "Code of Criminal Procedure 1973",
+                "IEA": "Indian Evidence Act 1872"
+            }
+            new_act_full = full_names.get(new_act_name, new_act_name)
+            old_act_full = full_names.get(old_act_name, old_act_name)
+            
+            # Step 2: Retrieve New Law Text from DB
+            search_query = f"{new_act_name} Section {new_sec_num}"
+            results = await self.search_service.hybrid_search(search_query, top_k=1, act_filter=new_act_name)
+            
+            new_text = ""
+            new_title = ""
+            
+            if results and results[0].section_number == str(new_sec_num):
+                new_text = results[0].content
+                new_title = results[0].title or f"{new_act_name} {new_sec_num}"
+            else:
+                # Fallback: Ask LLM with specific context
+                gen_prompt = f"""Provide the verbatim statutory text of Section {new_sec_num} of the {new_act_full}.
+                Do not add introductory text. Just provide the section title and content.
+                """
+                new_text = await (ChatPromptTemplate.from_template(gen_prompt) | self.llm | StrOutputParser()).ainvoke({})
+                new_title = f"{new_act_name} {new_sec_num}"
+
+            # Step 3: Retrieve Old Law Text
+            old_text_prompt = f"""Provide the verbatim statutory text and title of Section {old_sec_num} of the {old_act_full}.
+            Do not add introductory text.
+            """
+            old_content_raw = await (ChatPromptTemplate.from_template(old_text_prompt) | self.llm | StrOutputParser()).ainvoke({})
+            old_title = f"{old_act_name} {old_sec_num}"
+            old_text = old_content_raw
+
+            # Step 4: Generate Comparison Analysis
+            analyze_prompt = """Compare these two legal sections:
+            
+            OLD LAW ({old_act} {old_sec}):
+            {old_text}
+            
+            NEW LAW ({new_act} {new_sec}):
+            {new_text}
+            
+            Generate a structured JSON comparison:
+            {{
+                "change_type": "modified", 
+                "summary": "Brief summary of changes.",
+                "diff": {{
+                    "removed": ["Short phrases removed"],
+                    "added": ["Short phrases added"]
+                }}
+            }}
+            """
+            
+            analysis_chain = ChatPromptTemplate.from_template(analyze_prompt) | self.llm | StrOutputParser()
+            analysis_str = await analysis_chain.ainvoke({
+                "old_act": old_act_name, "old_sec": old_sec_num, "old_text": old_text,
+                "new_act": new_act_name, "new_sec": new_sec_num, "new_text": new_text
+            })
+            
+            # Extract JSON from analysis
+            analysis_str = analysis_str.strip()
+            if "```json" in analysis_str:
+                analysis_str = analysis_str.split("```json")[1].split("```")[0]
+            elif "```" in analysis_str:
+                analysis_str = analysis_str.split("```")[1].split("```")[0]
+            elif "{" in analysis_str:
+                start = analysis_str.find("{")
+                end = analysis_str.rfind("}") + 1
+                analysis_str = analysis_str[start:end]
+            
+            try:
+                analysis = json.loads(analysis_str)
+            except:
+                analysis = {} # Fallback to empty if parsing fails
+            
+            # Construct Response
+            return {
+                "old": {
+                    "id": f"{old_act_name.lower()}_{old_sec_num}",
+                    "act": old_act_name,
+                    "section": old_sec_num,
+                    "title": old_title,
+                    "content": old_text
+                },
+                "new": {
+                    "id": f"{new_act_name.lower()}_{new_sec_num}",
+                    "act": new_act_name,
+                    "section": new_sec_num,
+                    "title": new_title,
+                    "content": new_text
+                },
+                "mapping": {
+                    "oldSectionId": f"{old_act_name.lower()}_{old_sec_num}",
+                    "newSectionId": f"{new_act_name.lower()}_{new_sec_num}",
+                    "changeType": analysis.get("change_type", "modified"),
+                    "summary": analysis.get("summary", "Analysis unavailable"),
+                    "diff": analysis.get("diff", {"added": [], "removed": []})
+                }
+            }
+            
+        except Exception as e:
+            print(f"Comparison failed: {e}")
+            return None

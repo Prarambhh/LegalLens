@@ -31,7 +31,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import get_settings
-from app.database import AsyncSessionLocal, init_db
+from app.database import get_session_factory, init_db
 from app.models import Act, Section
 from app.models.acts import ActType
 
@@ -425,7 +425,8 @@ async def ingest_document(
     print("\n💾 Connecting to database...")
     await init_db()
     
-    async with AsyncSessionLocal() as session:
+    session_factory = get_session_factory()
+    async with session_factory() as session:
         # Create or get act
         act = await get_or_create_act(session, parsed_act)
         

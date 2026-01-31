@@ -6,21 +6,25 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy import text
-from app.config import get_settings
+from app.database import get_engine
 
 async def check_db_connection():
-    settings = get_settings()
-    print(f"Checking connection to: {settings.database_url.split('@')[-1]}") # Hide password
+    print(f"Checking connection...")
     
     try:
-        engine = create_async_engine(settings.database_url)
-        print("Engine created.")
-        
+        engine = get_engine()
         async with engine.connect() as conn:
-            print("Connecting...")
-            result = await conn.execute(text("SELECT 1"))
-            print(f"Result: {result.scalar()}")
             print("✅ Database connection successful!")
+            
+            # Check Counts
+            tables = ["acts", "sections", "mappings", "case_law"]
+            for t_name in tables:
+                try:
+                    result = await conn.execute(text(f"SELECT COUNT(*) FROM {t_name}"))
+                    count = result.scalar()
+                    print(f"📊 {t_name}: {count}")
+                except Exception as e:
+                    print(f"⚠️ {t_name}: Error ({e})")
             
     except Exception as e:
         print(f"❌ Database connection failed: {e}")

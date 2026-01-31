@@ -362,7 +362,7 @@ class SearchService:
         return [
             SearchResult(
                 section_id=row.id,
-                act_name=row.court or "Unknown Court",
+                act_name=row.court_name or "Unknown Court",
                 act_short_name="CASE",
                 section_number="N/A",
                 title=row.title,
