@@ -1,0 +1,103 @@
+{
+    "app": {
+        "name": "LegalLens",
+        "tagline": "AI আইনি সহায়ক",
+        "title": "ভারতের জন্য AI-চালিত আইনি সহায়ক",
+        "welcomeTitle": "LegalLens-এ স্বাগতম",
+        "welcomeSubtitle": "IPC/CrPC/IEA থেকে BNS/BNSS/BSA-তে রূপান্তরে ভারতীয় আইনজীবী এবং নাগরিকদের সাহায্যকারী AI-চালিত আইনি সহায়ক।"
+    },
+    "nav": {
+        "research": "গবেষণা",
+        "researchDesc": "AI-চালিত আইনি প্রশ্নোত্তর",
+        "compareLaws": "আইন তুলনা করুন",
+        "compareLawsDesc": "IPC ↔ BNS রূপান্তর",
+        "drafting": "খসড়া",
+        "draftingDesc": "আইনি নথি খসড়া",
+        "documents": "আমার নথি",
+        "documentsDesc": "আপলোড করা ফাইল ও বিশ্লেষণ",
+        "settings": "সেটিংস",
+        "collapse": "সংকুচিত করুন",
+        "darkMode": "ডার্ক মোড",
+        "lightMode": "লাইট মোড"
+    },
+    "home": {
+        "legalResearch": "আইনি গবেষণা",
+        "legalResearchDesc": "AI-চালিত উদ্ধৃতি সহ ভারতীয় ফৌজদারি আইন সম্পর্কে প্রশ্ন করুন",
+        "compareLaws": "আইন তুলনা করুন",
+        "compareLawsDesc": "হাইলাইট করা পরিবর্তন সহ IPC ↔ BNS ধারা ম্যাপিং দেখুন",
+        "draftDocuments": "নথি খসড়া করুন",
+        "draftDocumentsDesc": "টেমপ্লেট সহ AI-সহায়তা আইনি নথি খসড়া",
+        "analyzeDocuments": "নথি বিশ্লেষণ করুন",
+        "analyzeDocumentsDesc": "AI বিশ্লেষণের জন্য FIR এবং আদালতের আদেশ আপলোড করুন",
+        "lawNotice": "জুলাই 2024: ভারতের নতুন ফৌজদারি আইন (BNS, BNSS, BSA) এখন কার্যকর, IPC, CrPC এবং IEA প্রতিস্থাপন করছে।"
+    },
+    "research": {
+        "title": "আইনি গবেষণা",
+        "subtitle": "আইনি উদ্ধৃতি সহ AI-চালিত প্রশ্নোত্তর",
+        "askQuestion": "একটি আইনি প্রশ্ন জিজ্ঞাসা করুন",
+        "askQuestionDesc": "BNS, BNSS, BSA (এবং পুরানো আইন IPC, CrPC, IEA) থেকে উদ্ধৃতি সহ ভারতীয় ফৌজদারি আইন সম্পর্কে AI-চালিত উত্তর পান।",
+        "placeholder": "একটি আইনি প্রশ্ন জিজ্ঞাসা করুন...",
+        "sample1": "BNS-এর অধীনে হত্যার শাস্তি কী?",
+        "sample2": "IPC 420 এর সাথে BNS সমতুল্য তুলনা করুন",
+        "sample3": "BNSS-এ জামিনের বিধান কী?",
+        "sourceCitation": "উৎস উদ্ধৃতি"
+    },
+    "compare": {
+        "title": "আইন তুলনা করুন",
+        "subtitle": "IPC ↔ BNS ধারা ম্যাপিং",
+        "searchPlaceholder": "ধারা নম্বর দিয়ে অনুসন্ধান করুন...",
+        "oldLaw": "পুরানো আইন",
+        "newLaw": "নতুন আইন",
+        "repealed": "বাতিল",
+        "inForce": "কার্যকর",
+        "changesAnalysis": "পরিবর্তন বিশ্লেষণ",
+        "changeType": "পরিবর্তনের ধরন",
+        "summary": "সারসংক্ষেপ",
+        "removed": "সরানো হয়েছে",
+        "added": "যোগ করা হয়েছে"
+    },
+    "documents": {
+        "title": "নথি বিশ্লেষণ",
+        "subtitle": "AI-চালিত বিশ্লেষণের জন্য FIR, আদালতের আদেশ এবং আইনি নথি আপলোড করুন",
+        "dropFiles": "এখানে ফাইল ফেলুন বা আপলোড করতে ক্লিক করুন",
+        "supportedFormats": "PDF, ছবি (JPG, PNG), এবং Word নথি সমর্থিত",
+        "chooseFiles": "ফাইল বেছে নিন",
+        "uploadedDocuments": "আপলোড করা নথি",
+        "noDocuments": "এখনও কোনো নথি আপলোড করা হয়নি",
+        "uploading": "আপলোড হচ্ছে...",
+        "analyzing": "বিশ্লেষণ হচ্ছে...",
+        "analyzed": "বিশ্লেষিত",
+        "error": "ত্রুটি",
+        "documentType": "নথির ধরন",
+        "chargesIdentified": "চিহ্নিত অভিযোগ",
+        "parties": "পক্ষ",
+        "keyDates": "গুরুত্বপূর্ণ তারিখ"
+    },
+    "drafting": {
+        "title": "আইনি খসড়া",
+        "subtitle": "BNS/BNSS/BSA সম্মতি সহ AI-সহায়তা আইনি নথি খসড়া",
+        "templates": "নথি টেমপ্লেট",
+        "selectTemplate": "একটি টেমপ্লেট নির্বাচন করুন",
+        "selectTemplateDesc": "খসড়া শুরু করতে সাইডবার থেকে একটি নথি টেমপ্লেট বেছে নিন",
+        "generateDraft": "খসড়া তৈরি করুন",
+        "generating": "তৈরি হচ্ছে...",
+        "copy": "কপি",
+        "download": "ডাউনলোড",
+        "placeholder": "নথি তৈরি করতে 'খসড়া তৈরি করুন' ক্লিক করুন, অথবা টাইপ করা শুরু করুন...",
+        "bailApplication": "জামিন আবেদন",
+        "bailApplicationDesc": "BNSS-এর অধীনে নিয়মিত/অগ্রিম জামিনের আবেদন",
+        "criminalComplaint": "ফৌজদারি অভিযোগ",
+        "criminalComplaintDesc": "BNSS ধারা 223-এর অধীনে ব্যক্তিগত অভিযোগ",
+        "firQuashing": "FIR বাতিল পিটিশন",
+        "firQuashingDesc": "BNSS ধারা 528-এর অধীনে পিটিশন (হাইকোর্ট)",
+        "vakalatnama": "ওকালতনামা",
+        "vakalatnamaDesc": "আইনি প্রতিনিধিত্বের জন্য অনুমোদন"
+    },
+    "common": {
+        "act": "আইন",
+        "section": "ধারা",
+        "content": "বিষয়বস্তু",
+        "criminal": "ফৌজদারি",
+        "general": "সাধারণ"
+    }
+}

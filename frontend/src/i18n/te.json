@@ -1,0 +1,103 @@
+{
+    "app": {
+        "name": "LegalLens",
+        "tagline": "AI న్యాయ సహాయకుడు",
+        "title": "భారతదేశం కోసం AI-ఆధారిత న్యాయ సహాయకుడు",
+        "welcomeTitle": "LegalLensకు స్వాగతం",
+        "welcomeSubtitle": "IPC/CrPC/IEA నుండి BNS/BNSS/BSAకు మారడంలో భారతీయ న్యాయవాదులు మరియు పౌరులకు సహాయం చేసే AI-ఆధారిత న్యాయ సహాయకుడు."
+    },
+    "nav": {
+        "research": "పరిశోధన",
+        "researchDesc": "AI-ఆధారిత న్యాయ ప్రశ్నోత్తరాలు",
+        "compareLaws": "చట్టాలను పోల్చండి",
+        "compareLawsDesc": "IPC ↔ BNS మార్పు",
+        "drafting": "డ్రాఫ్టింగ్",
+        "draftingDesc": "న్యాయ పత్ర డ్రాఫ్టింగ్",
+        "documents": "నా పత్రాలు",
+        "documentsDesc": "అప్‌లోడ్ చేసిన ఫైల్స్ & విశ్లేషణ",
+        "settings": "సెట్టింగ్‌లు",
+        "collapse": "కుదించు",
+        "darkMode": "డార్క్ మోడ్",
+        "lightMode": "లైట్ మోడ్"
+    },
+    "home": {
+        "legalResearch": "న్యాయ పరిశోధన",
+        "legalResearchDesc": "AI-ఆధారిత ఉల్లేఖనాలతో భారతీయ క్రిమినల్ చట్టం గురించి ప్రశ్నలు అడగండి",
+        "compareLaws": "చట్టాలను పోల్చండి",
+        "compareLawsDesc": "హైలైట్ చేసిన మార్పులతో IPC ↔ BNS సెక్షన్ మ్యాపింగ్ చూడండి",
+        "draftDocuments": "పత్రాలు డ్రాఫ్ట్ చేయండి",
+        "draftDocumentsDesc": "టెంప్లేట్‌లతో AI-సహాయ న్యాయ పత్ర డ్రాఫ్టింగ్",
+        "analyzeDocuments": "పత్రాలను విశ్లేషించండి",
+        "analyzeDocumentsDesc": "AI విశ్లేషణ కోసం FIR మరియు కోర్ట్ ఆర్డర్‌లను అప్‌లోడ్ చేయండి",
+        "lawNotice": "జూలై 2024: భారతదేశం యొక్క కొత్త క్రిమినల్ చట్టాలు (BNS, BNSS, BSA) ఇప్పుడు అమలులో ఉన్నాయి, IPC, CrPC మరియు IEAను భర్తీ చేస్తున్నాయి."
+    },
+    "research": {
+        "title": "న్యాయ పరిశోధన",
+        "subtitle": "న్యాయ ఉల్లేఖనాలతో AI-ఆధారిత ప్రశ్నోత్తరాలు",
+        "askQuestion": "న్యాయ ప్రశ్న అడగండి",
+        "askQuestionDesc": "BNS, BNSS, BSA (మరియు పాత చట్టాలు IPC, CrPC, IEA) ఉల్లేఖనాలతో భారతీయ క్రిమినల్ చట్టం గురించి AI-ఆధారిత జవాబులు పొందండి.",
+        "placeholder": "న్యాయ ప్రశ్న అడగండి...",
+        "sample1": "BNS కింద హత్యకు శిక్ష ఏమిటి?",
+        "sample2": "IPC 420ను BNS సమానంతో పోల్చండి",
+        "sample3": "BNSSలో బెయిల్ నిబంధనలు ఏమిటి?",
+        "sourceCitation": "మూల ఉల్లేఖనం"
+    },
+    "compare": {
+        "title": "చట్టాలను పోల్చండి",
+        "subtitle": "IPC ↔ BNS సెక్షన్ మ్యాపింగ్",
+        "searchPlaceholder": "సెక్షన్ నంబర్ ద్వారా శోధించండి...",
+        "oldLaw": "పాత చట్టం",
+        "newLaw": "కొత్త చట్టం",
+        "repealed": "రద్దు",
+        "inForce": "అమలులో",
+        "changesAnalysis": "మార్పుల విశ్లేషణ",
+        "changeType": "మార్పు రకం",
+        "summary": "సారాంశం",
+        "removed": "తొలగించబడింది",
+        "added": "జోడించబడింది"
+    },
+    "documents": {
+        "title": "పత్ర విశ్లేషణ",
+        "subtitle": "AI-ఆధారిత విశ్లేషణ కోసం FIR, కోర్ట్ ఆర్డర్‌లు మరియు న్యాయ పత్రాలను అప్‌లోడ్ చేయండి",
+        "dropFiles": "ఫైల్స్‌ను ఇక్కడ వదలండి లేదా అప్‌లోడ్ చేయడానికి క్లిక్ చేయండి",
+        "supportedFormats": "PDF, చిత్రాలు (JPG, PNG), మరియు Word పత్రాలు సపోర్ట్ చేయబడతాయి",
+        "chooseFiles": "ఫైల్స్ ఎంచుకోండి",
+        "uploadedDocuments": "అప్‌లోడ్ చేసిన పత్రాలు",
+        "noDocuments": "ఇంకా పత్రాలు అప్‌లోడ్ చేయబడలేదు",
+        "uploading": "అప్‌లోడ్ అవుతోంది...",
+        "analyzing": "విశ్లేషిస్తోంది...",
+        "analyzed": "విశ్లేషించబడింది",
+        "error": "లోపం",
+        "documentType": "పత్ర రకం",
+        "chargesIdentified": "గుర్తించిన ఆరోపణలు",
+        "parties": "పార్టీలు",
+        "keyDates": "ముఖ్యమైన తేదీలు"
+    },
+    "drafting": {
+        "title": "న్యాయ డ్రాఫ్టింగ్",
+        "subtitle": "BNS/BNSS/BSA సమ్మతితో AI-సహాయ న్యాయ పత్ర డ్రాఫ్టింగ్",
+        "templates": "పత్ర టెంప్లేట్‌లు",
+        "selectTemplate": "టెంప్లేట్ ఎంచుకోండి",
+        "selectTemplateDesc": "డ్రాఫ్టింగ్ ప్రారంభించడానికి సైడ్‌బార్ నుండి పత్ర టెంప్లేట్ ఎంచుకోండి",
+        "generateDraft": "డ్రాఫ్ట్ సృష్టించు",
+        "generating": "సృష్టిస్తోంది...",
+        "copy": "కాపీ",
+        "download": "డౌన్‌లోడ్",
+        "placeholder": "పత్రం సృష్టించడానికి 'డ్రాఫ్ట్ సృష్టించు' క్లిక్ చేయండి, లేదా టైప్ చేయడం ప్రారంభించండి...",
+        "bailApplication": "బెయిల్ దరఖాస్తు",
+        "bailApplicationDesc": "BNSS కింద సాధారణ/ముందస్తు బెయిల్ దరఖాస్తు",
+        "criminalComplaint": "క్రిమినల్ ఫిర్యాదు",
+        "criminalComplaintDesc": "BNSS సెక్షన్ 223 కింద ప్రైవేట్ ఫిర్యాదు",
+        "firQuashing": "FIR రద్దు పిటిషన్",
+        "firQuashingDesc": "BNSS సెక్షన్ 528 కింద పిటిషన్ (హైకోర్ట్)",
+        "vakalatnama": "వకాలత్‌నామా",
+        "vakalatnamaDesc": "న్యాయ ప్రాతినిధ్యం కోసం అధికారం"
+    },
+    "common": {
+        "act": "చట్టం",
+        "section": "సెక్షన్",
+        "content": "కంటెంట్",
+        "criminal": "క్రిమినల్",
+        "general": "సాధారణ"
+    }
+}

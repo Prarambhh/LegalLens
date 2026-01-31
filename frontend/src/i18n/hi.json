@@ -1,0 +1,103 @@
+{
+    "app": {
+        "name": "लीगलLens",
+        "tagline": "AI कानूनी सहायक",
+        "title": "भारत के लिए AI-संचालित कानूनी सहायक",
+        "welcomeTitle": "लीगलLens में आपका स्वागत है",
+        "welcomeSubtitle": "AI-संचालित कानूनी सहायक जो भारतीय वकीलों और नागरिकों को IPC/CrPC/IEA से BNS/BNSS/BSA में संक्रमण में मदद करता है।"
+    },
+    "nav": {
+        "research": "शोध",
+        "researchDesc": "AI-संचालित कानूनी प्रश्नोत्तर",
+        "compareLaws": "कानूनों की तुलना",
+        "compareLawsDesc": "IPC ↔ BNS संक्रमण",
+        "drafting": "ड्राफ्टिंग",
+        "draftingDesc": "कानूनी दस्तावेज़ ड्राफ्टिंग",
+        "documents": "मेरे दस्तावेज़",
+        "documentsDesc": "अपलोड की गई फ़ाइलें और विश्लेषण",
+        "settings": "सेटिंग्स",
+        "collapse": "छोटा करें",
+        "darkMode": "डार्क मोड",
+        "lightMode": "लाइट मोड"
+    },
+    "home": {
+        "legalResearch": "कानूनी शोध",
+        "legalResearchDesc": "AI-संचालित उद्धरणों के साथ भारतीय आपराधिक कानून के बारे में प्रश्न पूछें",
+        "compareLaws": "कानूनों की तुलना",
+        "compareLawsDesc": "हाइलाइट किए गए परिवर्तनों के साथ IPC ↔ BNS सेक्शन मैपिंग देखें",
+        "draftDocuments": "दस्तावेज़ ड्राफ्ट करें",
+        "draftDocumentsDesc": "टेम्पलेट्स के साथ AI-सहायता प्राप्त कानूनी दस्तावेज़ ड्राफ्टिंग",
+        "analyzeDocuments": "दस्तावेज़ों का विश्लेषण करें",
+        "analyzeDocumentsDesc": "AI विश्लेषण के लिए FIR और कोर्ट आदेश अपलोड करें",
+        "lawNotice": "जुलाई 2024: भारत के नए आपराधिक कानून (BNS, BNSS, BSA) अब लागू हैं, जो IPC, CrPC और IEA की जगह ले रहे हैं।"
+    },
+    "research": {
+        "title": "कानूनी शोध",
+        "subtitle": "कानूनी उद्धरणों के साथ AI-संचालित प्रश्नोत्तर",
+        "askQuestion": "एक कानूनी प्रश्न पूछें",
+        "askQuestionDesc": "BNS, BNSS, BSA (और पुराने कानून IPC, CrPC, IEA) से उद्धरणों के साथ भारतीय आपराधिक कानून के बारे में AI-संचालित उत्तर प्राप्त करें।",
+        "placeholder": "एक कानूनी प्रश्न पूछें...",
+        "sample1": "BNS के तहत हत्या की सजा क्या है?",
+        "sample2": "IPC 420 की BNS समकक्ष से तुलना करें",
+        "sample3": "BNSS में जमानत के प्रावधान क्या हैं?",
+        "sourceCitation": "स्रोत उद्धरण"
+    },
+    "compare": {
+        "title": "कानूनों की तुलना",
+        "subtitle": "IPC ↔ BNS सेक्शन मैपिंग",
+        "searchPlaceholder": "सेक्शन नंबर से खोजें...",
+        "oldLaw": "पुराना कानून",
+        "newLaw": "नया कानून",
+        "repealed": "निरस्त",
+        "inForce": "लागू",
+        "changesAnalysis": "परिवर्तन विश्लेषण",
+        "changeType": "परिवर्तन का प्रकार",
+        "summary": "सारांश",
+        "removed": "हटाया गया",
+        "added": "जोड़ा गया"
+    },
+    "documents": {
+        "title": "दस्तावेज़ विश्लेषण",
+        "subtitle": "AI-संचालित विश्लेषण के लिए FIR, कोर्ट आदेश और कानूनी दस्तावेज़ अपलोड करें",
+        "dropFiles": "फ़ाइलें यहां छोड़ें या अपलोड करने के लिए क्लिक करें",
+        "supportedFormats": "PDF, छवियां (JPG, PNG), और Word दस्तावेज़ समर्थित हैं",
+        "chooseFiles": "फ़ाइलें चुनें",
+        "uploadedDocuments": "अपलोड किए गए दस्तावेज़",
+        "noDocuments": "अभी तक कोई दस्तावेज़ अपलोड नहीं किया गया",
+        "uploading": "अपलोड हो रहा है...",
+        "analyzing": "विश्लेषण हो रहा है...",
+        "analyzed": "विश्लेषित",
+        "error": "त्रुटि",
+        "documentType": "दस्तावेज़ का प्रकार",
+        "chargesIdentified": "पहचाने गए आरोप",
+        "parties": "पक्षकार",
+        "keyDates": "महत्वपूर्ण तिथियां"
+    },
+    "drafting": {
+        "title": "कानूनी ड्राफ्टिंग",
+        "subtitle": "BNS/BNSS/BSA अनुपालन के साथ AI-सहायता प्राप्त कानूनी दस्तावेज़ ड्राफ्टिंग",
+        "templates": "दस्तावेज़ टेम्पलेट्स",
+        "selectTemplate": "एक टेम्पलेट चुनें",
+        "selectTemplateDesc": "ड्राफ्टिंग शुरू करने के लिए साइडबार से एक दस्तावेज़ टेम्पलेट चुनें",
+        "generateDraft": "ड्राफ्ट बनाएं",
+        "generating": "बनाया जा रहा है...",
+        "copy": "कॉपी करें",
+        "download": "डाउनलोड करें",
+        "placeholder": "दस्तावेज़ बनाने के लिए 'ड्राफ्ट बनाएं' पर क्लिक करें, या टाइप करना शुरू करें...",
+        "bailApplication": "जमानत आवेदन",
+        "bailApplicationDesc": "BNSS के तहत नियमित/अग्रिम जमानत के लिए आवेदन",
+        "criminalComplaint": "आपराधिक शिकायत",
+        "criminalComplaintDesc": "BNSS धारा 223 के तहत निजी शिकायत",
+        "firQuashing": "FIR रद्द करने की याचिका",
+        "firQuashingDesc": "BNSS धारा 528 के तहत याचिका (उच्च न्यायालय)",
+        "vakalatnama": "वकालतनामा",
+        "vakalatnamaDesc": "कानूनी प्रतिनिधित्व के लिए प्राधिकरण"
+    },
+    "common": {
+        "act": "अधिनियम",
+        "section": "धारा",
+        "content": "सामग्री",
+        "criminal": "आपराधिक",
+        "general": "सामान्य"
+    }
+}

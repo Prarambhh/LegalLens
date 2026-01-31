@@ -1,0 +1,103 @@
+{
+    "app": {
+        "name": "LegalLens",
+        "tagline": "AI કાનૂની સહાયક",
+        "title": "ભારત માટે AI-સંચાલિત કાનૂની સહાયક",
+        "welcomeTitle": "LegalLensમાં સ્વાગત છે",
+        "welcomeSubtitle": "IPC/CrPC/IEAથી BNS/BNSS/BSAમાં સંક્રમણમાં ભારતીય વકીલો અને નાગરિકોને મદદ કરતો AI-સંચાલિત કાનૂની સહાયક."
+    },
+    "nav": {
+        "research": "સંશોધન",
+        "researchDesc": "AI-સંચાલિત કાનૂની પ્રશ્નોત્તર",
+        "compareLaws": "કાયદાઓની સરખામણી કરો",
+        "compareLawsDesc": "IPC ↔ BNS સંક્રમણ",
+        "drafting": "ડ્રાફ્ટિંગ",
+        "draftingDesc": "કાનૂની દસ્તાવેજ ડ્રાફ્ટિંગ",
+        "documents": "મારા દસ્તાવેજો",
+        "documentsDesc": "અપલોડ કરેલી ફાઇલો અને વિશ્લેષણ",
+        "settings": "સેટિંગ્સ",
+        "collapse": "સંકુચિત કરો",
+        "darkMode": "ડાર્ક મોડ",
+        "lightMode": "લાઇટ મોડ"
+    },
+    "home": {
+        "legalResearch": "કાનૂની સંશોધન",
+        "legalResearchDesc": "AI-સંચાલિત સંદર્ભો સાથે ભારતીય ફોજદારી કાયદા વિશે પ્રશ્નો પૂછો",
+        "compareLaws": "કાયદાઓની સરખામણી કરો",
+        "compareLawsDesc": "હાઇલાઇટ કરેલા ફેરફારો સાથે IPC ↔ BNS કલમ મેપિંગ જુઓ",
+        "draftDocuments": "દસ્તાવેજો ડ્રાફ્ટ કરો",
+        "draftDocumentsDesc": "ટેમ્પલેટ્સ સાથે AI-સહાય કાનૂની દસ્તાવેજ ડ્રાફ્ટિંગ",
+        "analyzeDocuments": "દસ્તાવેજોનું વિશ્લેષણ કરો",
+        "analyzeDocumentsDesc": "AI વિશ્લેષણ માટે FIR અને કોર્ટ ઓર્ડર અપલોડ કરો",
+        "lawNotice": "જુલાઈ 2024: ભારતના નવા ફોજદારી કાયદાઓ (BNS, BNSS, BSA) હવે અમલમાં છે, IPC, CrPC અને IEAનું સ્થાન લઈ રહ્યા છે."
+    },
+    "research": {
+        "title": "કાનૂની સંશોધન",
+        "subtitle": "કાનૂની સંદર્ભો સાથે AI-સંચાલિત પ્રશ્નોત્તર",
+        "askQuestion": "કાનૂની પ્રશ્ન પૂછો",
+        "askQuestionDesc": "BNS, BNSS, BSA (અને જૂના કાયદાઓ IPC, CrPC, IEA) માંથી સંદર્ભો સાથે ભારતીય ફોજદારી કાયદા વિશે AI-સંચાલિત જવાબો મેળવો.",
+        "placeholder": "કાનૂની પ્રશ્ન પૂછો...",
+        "sample1": "BNS હેઠળ હત્યાની સજા શું છે?",
+        "sample2": "IPC 420ની BNS સમકક્ષ સાથે સરખામણી કરો",
+        "sample3": "BNSSમાં જામીનની જોગવાઈઓ શું છે?",
+        "sourceCitation": "સ્ત્રોત સંદર્ભ"
+    },
+    "compare": {
+        "title": "કાયદાઓની સરખામણી કરો",
+        "subtitle": "IPC ↔ BNS કલમ મેપિંગ",
+        "searchPlaceholder": "કલમ નંબર દ્વારા શોધો...",
+        "oldLaw": "જૂનો કાયદો",
+        "newLaw": "નવો કાયદો",
+        "repealed": "રદ",
+        "inForce": "અમલમાં",
+        "changesAnalysis": "ફેરફારોનું વિશ્લેષણ",
+        "changeType": "ફેરફારનો પ્રકાર",
+        "summary": "સારાંશ",
+        "removed": "દૂર કર્યું",
+        "added": "ઉમેર્યું"
+    },
+    "documents": {
+        "title": "દસ્તાવેજ વિશ્લેષણ",
+        "subtitle": "AI-સંચાલિત વિશ્લેષણ માટે FIR, કોર્ટ ઓર્ડર અને કાનૂની દસ્તાવેજો અપલોડ કરો",
+        "dropFiles": "અહીં ફાઇલો મૂકો અથવા અપલોડ કરવા ક્લિક કરો",
+        "supportedFormats": "PDF, છબીઓ (JPG, PNG), અને Word દસ્તાવેજો સમર્થિત છે",
+        "chooseFiles": "ફાઇલો પસંદ કરો",
+        "uploadedDocuments": "અપલોડ કરેલા દસ્તાવેજો",
+        "noDocuments": "હજુ સુધી કોઈ દસ્તાવેજો અપલોડ કરાયા નથી",
+        "uploading": "અપલોડ થઈ રહ્યું છે...",
+        "analyzing": "વિશ્લેષણ થઈ રહ્યું છે...",
+        "analyzed": "વિશ્લેષિત",
+        "error": "ભૂલ",
+        "documentType": "દસ્તાવેજનો પ્રકાર",
+        "chargesIdentified": "ઓળખાયેલા આરોપો",
+        "parties": "પક્ષો",
+        "keyDates": "મહત્વની તારીખો"
+    },
+    "drafting": {
+        "title": "કાનૂની ડ્રાફ્ટિંગ",
+        "subtitle": "BNS/BNSS/BSA અનુપાલન સાથે AI-સહાય કાનૂની દસ્તાવેજ ડ્રાફ્ટિંગ",
+        "templates": "દસ્તાવેજ ટેમ્પલેટ્સ",
+        "selectTemplate": "ટેમ્પલેટ પસંદ કરો",
+        "selectTemplateDesc": "ડ્રાફ્ટિંગ શરૂ કરવા સાઇડબારમાંથી દસ્તાવેજ ટેમ્પલેટ પસંદ કરો",
+        "generateDraft": "ડ્રાફ્ટ બનાવો",
+        "generating": "બનાવી રહ્યું છે...",
+        "copy": "કૉપિ કરો",
+        "download": "ડાઉનલોડ કરો",
+        "placeholder": "દસ્તાવેજ બનાવવા માટે 'ડ્રાફ્ટ બનાવો' ક્લિક કરો, અથવા ટાઇપ કરવાનું શરૂ કરો...",
+        "bailApplication": "જામીન અરજી",
+        "bailApplicationDesc": "BNSS હેઠળ નિયમિત/આગોતરા જામીન માટે અરજી",
+        "criminalComplaint": "ફોજદારી ફરિયાદ",
+        "criminalComplaintDesc": "BNSS કલમ 223 હેઠળ ખાનગી ફરિયાદ",
+        "firQuashing": "FIR રદ અરજી",
+        "firQuashingDesc": "BNSS કલમ 528 હેઠળ અરજી (હાઈકોર્ટ)",
+        "vakalatnama": "વકાલતનામું",
+        "vakalatnamaDesc": "કાનૂની પ્રતિનિધિત્વ માટે અધિકૃતતા"
+    },
+    "common": {
+        "act": "કાયદો",
+        "section": "કલમ",
+        "content": "સામગ્રી",
+        "criminal": "ફોજદારી",
+        "general": "સામાન્ય"
+    }
+}

@@ -1,0 +1,103 @@
+{
+    "app": {
+        "name": "LegalLens",
+        "tagline": "AI कायदेशीर सहाय्यक",
+        "title": "भारतासाठी AI-चालित कायदेशीर सहाय्यक",
+        "welcomeTitle": "LegalLens मध्ये स्वागत आहे",
+        "welcomeSubtitle": "IPC/CrPC/IEA पासून BNS/BNSS/BSA मध्ये संक्रमण करण्यात भारतीय वकील आणि नागरिकांना मदत करणारा AI-चालित कायदेशीर सहाय्यक."
+    },
+    "nav": {
+        "research": "संशोधन",
+        "researchDesc": "AI-चालित कायदेशीर प्रश्नोत्तर",
+        "compareLaws": "कायद्यांची तुलना करा",
+        "compareLawsDesc": "IPC ↔ BNS संक्रमण",
+        "drafting": "मसुदा",
+        "draftingDesc": "कायदेशीर दस्तऐवज मसुदा",
+        "documents": "माझी कागदपत्रे",
+        "documentsDesc": "अपलोड केलेल्या फाइल्स आणि विश्लेषण",
+        "settings": "सेटिंग्ज",
+        "collapse": "संकुचित करा",
+        "darkMode": "डार्क मोड",
+        "lightMode": "लाइट मोड"
+    },
+    "home": {
+        "legalResearch": "कायदेशीर संशोधन",
+        "legalResearchDesc": "AI-चालित संदर्भांसह भारतीय फौजदारी कायद्याबद्दल प्रश्न विचारा",
+        "compareLaws": "कायद्यांची तुलना करा",
+        "compareLawsDesc": "हायलाइट केलेल्या बदलांसह IPC ↔ BNS कलम मॅपिंग पहा",
+        "draftDocuments": "दस्तऐवज मसुदा करा",
+        "draftDocumentsDesc": "टेम्पलेट्ससह AI-सहाय्य कायदेशीर दस्तऐवज मसुदा",
+        "analyzeDocuments": "दस्तऐवजांचे विश्लेषण करा",
+        "analyzeDocumentsDesc": "AI विश्लेषणासाठी FIR आणि न्यायालयीन आदेश अपलोड करा",
+        "lawNotice": "जुलै 2024: भारताचे नवीन फौजदारी कायदे (BNS, BNSS, BSA) आता लागू आहेत, IPC, CrPC आणि IEA ची जागा घेत आहेत."
+    },
+    "research": {
+        "title": "कायदेशीर संशोधन",
+        "subtitle": "कायदेशीर संदर्भांसह AI-चालित प्रश्नोत्तर",
+        "askQuestion": "कायदेशीर प्रश्न विचारा",
+        "askQuestionDesc": "BNS, BNSS, BSA (आणि जुने कायदे IPC, CrPC, IEA) मधील संदर्भांसह भारतीय फौजदारी कायद्याबद्दल AI-चालित उत्तरे मिळवा.",
+        "placeholder": "कायदेशीर प्रश्न विचारा...",
+        "sample1": "BNS अंतर्गत खुनाची शिक्षा काय आहे?",
+        "sample2": "IPC 420 ची BNS समतुल्य सोबत तुलना करा",
+        "sample3": "BNSS मध्ये जामिनाच्या तरतुदी काय आहेत?",
+        "sourceCitation": "स्रोत संदर्भ"
+    },
+    "compare": {
+        "title": "कायद्यांची तुलना करा",
+        "subtitle": "IPC ↔ BNS कलम मॅपिंग",
+        "searchPlaceholder": "कलम क्रमांकाने शोधा...",
+        "oldLaw": "जुना कायदा",
+        "newLaw": "नवीन कायदा",
+        "repealed": "रद्द",
+        "inForce": "लागू",
+        "changesAnalysis": "बदलांचे विश्लेषण",
+        "changeType": "बदलाचा प्रकार",
+        "summary": "सारांश",
+        "removed": "काढले",
+        "added": "जोडले"
+    },
+    "documents": {
+        "title": "दस्तऐवज विश्लेषण",
+        "subtitle": "AI-चालित विश्लेषणासाठी FIR, न्यायालयीन आदेश आणि कायदेशीर दस्तऐवज अपलोड करा",
+        "dropFiles": "फाइल्स येथे टाका किंवा अपलोड करण्यासाठी क्लिक करा",
+        "supportedFormats": "PDF, प्रतिमा (JPG, PNG), आणि Word दस्तऐवज समर्थित आहेत",
+        "chooseFiles": "फाइल्स निवडा",
+        "uploadedDocuments": "अपलोड केलेली कागदपत्रे",
+        "noDocuments": "अद्याप कोणतीही कागदपत्रे अपलोड केलेली नाहीत",
+        "uploading": "अपलोड होत आहे...",
+        "analyzing": "विश्लेषण होत आहे...",
+        "analyzed": "विश्लेषित",
+        "error": "त्रुटी",
+        "documentType": "दस्तऐवज प्रकार",
+        "chargesIdentified": "ओळखलेले आरोप",
+        "parties": "पक्ष",
+        "keyDates": "महत्त्वाच्या तारखा"
+    },
+    "drafting": {
+        "title": "कायदेशीर मसुदा",
+        "subtitle": "BNS/BNSS/BSA अनुपालनासह AI-सहाय्य कायदेशीर दस्तऐवज मसुदा",
+        "templates": "दस्तऐवज टेम्पलेट्स",
+        "selectTemplate": "टेम्पलेट निवडा",
+        "selectTemplateDesc": "मसुदा सुरू करण्यासाठी साइडबारमधून दस्तऐवज टेम्पलेट निवडा",
+        "generateDraft": "मसुदा तयार करा",
+        "generating": "तयार होत आहे...",
+        "copy": "कॉपी करा",
+        "download": "डाउनलोड करा",
+        "placeholder": "दस्तऐवज तयार करण्यासाठी 'मसुदा तयार करा' वर क्लिक करा, किंवा टाइप करणे सुरू करा...",
+        "bailApplication": "जामीन अर्ज",
+        "bailApplicationDesc": "BNSS अंतर्गत नियमित/अग्रिम जामिनासाठी अर्ज",
+        "criminalComplaint": "फौजदारी तक्रार",
+        "criminalComplaintDesc": "BNSS कलम 223 अंतर्गत खाजगी तक्रार",
+        "firQuashing": "FIR रद्द करण्याची याचिका",
+        "firQuashingDesc": "BNSS कलम 528 अंतर्गत याचिका (उच्च न्यायालय)",
+        "vakalatnama": "वकालतनामा",
+        "vakalatnamaDesc": "कायदेशीर प्रतिनिधित्वासाठी अधिकृतता"
+    },
+    "common": {
+        "act": "कायदा",
+        "section": "कलम",
+        "content": "सामग्री",
+        "criminal": "फौजदारी",
+        "general": "सामान्य"
+    }
+}

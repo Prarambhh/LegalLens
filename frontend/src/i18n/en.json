@@ -1,0 +1,103 @@
+{
+    "app": {
+        "name": "LegalLens",
+        "tagline": "AI Legal Helper",
+        "title": "AI-Powered Legal Helper for India",
+        "welcomeTitle": "Welcome to LegalLens",
+        "welcomeSubtitle": "AI-powered legal assistant helping Indian lawyers and citizens navigate the transition from IPC/CrPC/IEA to BNS/BNSS/BSA."
+    },
+    "nav": {
+        "research": "Research",
+        "researchDesc": "AI-powered legal Q&A",
+        "compareLaws": "Compare Laws",
+        "compareLawsDesc": "IPC ↔ BNS transition",
+        "drafting": "Drafting",
+        "draftingDesc": "Legal document drafting",
+        "documents": "My Documents",
+        "documentsDesc": "Uploaded files & analysis",
+        "settings": "Settings",
+        "collapse": "Collapse",
+        "darkMode": "Dark Mode",
+        "lightMode": "Light Mode"
+    },
+    "home": {
+        "legalResearch": "Legal Research",
+        "legalResearchDesc": "Ask questions about Indian criminal law with AI-powered citations",
+        "compareLaws": "Compare Laws",
+        "compareLawsDesc": "See IPC ↔ BNS section mappings with highlighted changes",
+        "draftDocuments": "Draft Documents",
+        "draftDocumentsDesc": "AI-assisted legal document drafting with templates",
+        "analyzeDocuments": "Analyze Documents",
+        "analyzeDocumentsDesc": "Upload FIRs and court orders for AI analysis",
+        "lawNotice": "July 2024: India's new criminal laws (BNS, BNSS, BSA) are now in effect, replacing IPC, CrPC, and IEA."
+    },
+    "research": {
+        "title": "Legal Research",
+        "subtitle": "AI-powered Q&A with legal citations",
+        "askQuestion": "Ask a Legal Question",
+        "askQuestionDesc": "Get AI-powered answers about Indian criminal law with citations from BNS, BNSS, BSA (and old laws IPC, CrPC, IEA).",
+        "placeholder": "Ask a legal question...",
+        "sample1": "What is the punishment for murder under BNS?",
+        "sample2": "Compare IPC 420 with BNS equivalent",
+        "sample3": "What are the bail provisions in BNSS?",
+        "sourceCitation": "Source Citation"
+    },
+    "compare": {
+        "title": "Compare Laws",
+        "subtitle": "IPC ↔ BNS Section Mapping",
+        "searchPlaceholder": "Search by section number...",
+        "oldLaw": "Old Law",
+        "newLaw": "New Law",
+        "repealed": "Repealed",
+        "inForce": "In Force",
+        "changesAnalysis": "Changes Analysis",
+        "changeType": "Change Type",
+        "summary": "Summary",
+        "removed": "Removed",
+        "added": "Added"
+    },
+    "documents": {
+        "title": "Document Analysis",
+        "subtitle": "Upload FIRs, court orders, and legal documents for AI-powered analysis",
+        "dropFiles": "Drop files here or click to upload",
+        "supportedFormats": "Supports PDF, images (JPG, PNG), and Word documents",
+        "chooseFiles": "Choose Files",
+        "uploadedDocuments": "Uploaded Documents",
+        "noDocuments": "No documents uploaded yet",
+        "uploading": "Uploading...",
+        "analyzing": "Analyzing...",
+        "analyzed": "Analyzed",
+        "error": "Error",
+        "documentType": "Document Type",
+        "chargesIdentified": "Charges Identified",
+        "parties": "Parties",
+        "keyDates": "Key Dates"
+    },
+    "drafting": {
+        "title": "Legal Drafting",
+        "subtitle": "AI-assisted legal document drafting with BNS/BNSS/BSA compliance",
+        "templates": "Document Templates",
+        "selectTemplate": "Select a Template",
+        "selectTemplateDesc": "Choose a document template from the sidebar to start drafting",
+        "generateDraft": "Generate Draft",
+        "generating": "Generating...",
+        "copy": "Copy",
+        "download": "Download",
+        "placeholder": "Click 'Generate Draft' to create a document, or start typing...",
+        "bailApplication": "Bail Application",
+        "bailApplicationDesc": "Application for regular/anticipatory bail under BNSS",
+        "criminalComplaint": "Criminal Complaint",
+        "criminalComplaintDesc": "Private complaint under Section 223 BNSS",
+        "firQuashing": "FIR Quashing Petition",
+        "firQuashingDesc": "Petition under Section 528 BNSS (High Court)",
+        "vakalatnama": "Vakalatnama",
+        "vakalatnamaDesc": "Authorization for legal representation"
+    },
+    "common": {
+        "act": "Act",
+        "section": "Section",
+        "content": "Content",
+        "criminal": "Criminal",
+        "general": "General"
+    }
+}
