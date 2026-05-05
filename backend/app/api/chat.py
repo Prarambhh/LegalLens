@@ -99,6 +99,18 @@ async def chat(
         )
         
     except Exception as e:
+        import traceback
+        error_msg = f"Error processing chat request: {str(e)}\n{traceback.format_exc()}"
+        try:
+            print(error_msg) # Print to console
+        except UnicodeEncodeError:
+            print("Error processing chat request (Unicode print error, check logs)")
+        
+        # Write to file for checking
+        with open("e:/LegalLens/backend/chat_errors.log", "a", encoding="utf-8") as f:
+            f.write(f"\n\n=== ERROR {request.message[:20]} ===\n")
+            f.write(error_msg)
+            
         raise HTTPException(
             status_code=500,
             detail=f"Error processing chat request: {str(e)}"

@@ -3,10 +3,12 @@ LegalLens Database Configuration
 Async SQLAlchemy setup with pgvector support for Supabase.
 """
 
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
-from sqlalchemy.orm import declarative_base
-from sqlalchemy import text
 from typing import Optional
+
+from sqlalchemy import text, event
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.orm import declarative_base
+from sqlalchemy.pool import NullPool
 
 from app.config import get_settings
 
@@ -20,18 +22,21 @@ _engine = None
 _session_factory = None
 
 
-from sqlalchemy.pool import NullPool
-
 def get_engine():
     """Get or create the database engine."""
     global _engine
     if _engine is None:
         _engine = create_async_engine(
             settings.database_url,
-            echo=settings.debug,
+            echo=False,  # Disable SQL echo to reduce noise
             poolclass=NullPool,
-            # Supabase interaction settings
-            connect_args={"timeout": 10, "statement_cache_size": 0}
+            # Supabase pooler compatibility settings
+            connect_args={
+                "timeout": 30,
+                "command_timeout": 60,
+                "statement_cache_size": 0,
+                "prepared_statement_cache_size": 0,
+            },
         )
     return _engine
 
@@ -57,11 +62,14 @@ async def get_db() -> AsyncSession:
     async with session_factory() as session:
         try:
             yield session
+        except Exception:
+            await session.rollback()
+            raise
         finally:
             await session.close()
 
 
-async def init_db():
+async def init_db() -> bool:
     """
     Initialize database tables.
     Run this once to create all tables.
@@ -73,10 +81,12 @@ async def init_db():
             await conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
             # Create all tables
             await conn.run_sync(Base.metadata.create_all)
-        print("✅ Database initialized")
+        print("Database initialized")
+        return True
     except Exception as e:
-        print(f"⚠️ Database initialization failed: {e}")
+        print(f"Database initialization failed: {e}")
         print("   The API will start but database features won't work.")
+        return False
 
 
 async def close_db():

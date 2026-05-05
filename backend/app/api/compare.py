@@ -24,5 +24,10 @@ async def analyze_comparison(
         if not result:
             raise HTTPException(status_code=404, detail="Could not identify or find relevant sections to compare.")
         return result
+    except HTTPException:
+        raise
     except Exception as e:
+        import traceback
+        print(f"Comparison endpoint error: {e}")
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Comparison error: {str(e)}")

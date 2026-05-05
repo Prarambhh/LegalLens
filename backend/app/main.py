@@ -28,15 +28,18 @@ async def lifespan(app: FastAPI):
     # Skip database for now - uncomment when Supabase is configured
     try:
         from app.database import init_db
-        await init_db()
-        db_connected = True
-        print("Database connected")
+        db_connected = await init_db()
+        if db_connected:
+            print("Database connected")
+        else:
+            print("Database unavailable; continuing in degraded mode")
     except Exception as e:
         print(f"Database connection failed: {e}")
         print("   API will start but database features disabled.")
         db_connected = False
     
-    print("Running without database (configure Supabase to enable)")
+    if not db_connected:
+        print("Running without database (configure Supabase to enable)")
     
     yield
     
@@ -56,7 +59,7 @@ app = FastAPI(
 # Configure CORS for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Next.js dev server
+    allow_origin_regex=".*",  # Allow all origins for dev testing
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -78,23 +81,20 @@ async def health_check():
     """Detailed health check."""
     return {
         "status": "healthy",
-        "database": "connected",
+        "database": "connected" if db_connected else "disconnected",
         "embedding_model": settings.embedding_model
     }
 
 
 # API Routers
-from app.api import chat, documents
-app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
+from app.api import documents, chat, compare, admin, auth
 app.include_router(documents.router, prefix="/api/documents", tags=["Documents"])
-
-from app.api import auth, admin
-app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
+app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
+app.include_router(compare.router, prefix="/api/compare", tags=["Comparison"])
 app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
+app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 
 # TODO: Add more routers as needed
-from app.api import compare
-app.include_router(compare.router, prefix="/api/compare", tags=["Compare Laws"])
 
 
 if __name__ == "__main__":

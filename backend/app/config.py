@@ -4,8 +4,10 @@ Loads environment variables and provides typed settings.
 """
 
 from functools import lru_cache
-from pydantic_settings import BaseSettings
+from pathlib import Path
 from typing import Optional
+
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
@@ -20,13 +22,8 @@ class Settings(BaseSettings):
     @classmethod
     def assemble_db_connection(cls, v: Optional[str]) -> str:
         if v:
-             # Force Session Mode (5432) instead of Transaction Mode (6543)
-             # to avoid "prepared statement already exists" errors with asyncpg
-             if ":6543" in v:
-                 v = v.replace(":6543", ":5432")
-             
-             if v.startswith("postgresql://"):
-                 v = v.replace("postgresql://", "postgresql+asyncpg://")
+            if v.startswith("postgresql://"):
+                v = v.replace("postgresql://", "postgresql+asyncpg://", 1)
         
         # Force disable prepared statements for Supabase transaction mode
         if "statement_cache_size" not in v:
@@ -50,9 +47,10 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     
     class Config:
-        env_file = ".env"
+        env_file = Path(__file__).resolve().parents[1] / ".env"
         env_file_encoding = "utf-8"
         case_sensitive = False
+        extra = "ignore"
 
 
 @lru_cache()

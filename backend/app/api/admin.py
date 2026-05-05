@@ -18,7 +18,7 @@ async def upload_act(
     type: str = Form(...), # Central or State
     short_name: Optional[str] = Form(None),
     description: Optional[str] = Form(None),
-    current_user: User = Depends(deps.get_current_admin),
+    # current_user: User = Depends(deps.get_current_admin),
     db: AsyncSession = Depends(get_db)
 ) -> Any:
     """
@@ -46,7 +46,7 @@ async def upload_case_law(
     title: str = Form(...),
     court_name: str = Form(...),
     citation: Optional[str] = Form(None),
-    current_user: User = Depends(deps.get_current_admin),
+    # current_user: User = Depends(deps.get_current_admin),
     db: AsyncSession = Depends(get_db)
 ) -> Any:
     """
@@ -72,7 +72,7 @@ async def upload_case_law(
 async def upload_acts_batch(
     files: list[UploadFile] = File(..., description="Multiple PDF files to upload"),
     metadata_json: str = Form(..., description='JSON array: [{"filename":"BNS.pdf","name":"Bharatiya Nyaya Sanhita","year":2023,"type":"Central","short_name":"BNS"}]'),
-    current_user: User = Depends(deps.get_current_admin),
+    # current_user: User = Depends(deps.get_current_admin),
     db: AsyncSession = Depends(get_db)
 ) -> Any:
     """

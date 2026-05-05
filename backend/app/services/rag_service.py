@@ -121,7 +121,7 @@ Respond with ONLY the category name. Nothing else."""
         
         # Lighter model for classification tasks
         self.classifier_llm = ChatGroq(
-            model="llama-3.1-8b-instant",
+            model="llama-3.3-70b-versatile",
             api_key=settings.groq_api_key,
             temperature=0
         )
@@ -238,10 +238,6 @@ CONTEXT FROM LEGAL SECTIONS (Use if relevant):
         chain = prompt | self.llm | StrOutputParser()
         
         try:
-            # Note: For drafting, we pass context into the system prompt string above if using f-string, 
-            # or we rely on the prompt template to format it.
-            # Here 'system_instruction' has {context} placeholder.
-            
             result = await chain.ainvoke({
                 "context": context,
                 "query": user_prompt
@@ -332,28 +328,40 @@ CONTEXT FROM LEGAL SECTIONS (Use if relevant):
         intent = await self.classify_intent(query)
         
         # Step 3: Hybrid Search (Match more candidates for reranking)
-        fetch_k = 25 
-        results = await self.search_service.hybrid_search(
-            query=query,
-            top_k=fetch_k,
-            act_filter=act_filter
-        )
+        fetch_k = 40 
+        try:
+            results = await self.search_service.hybrid_search(
+                query=query,
+                top_k=fetch_k,
+                act_filter=act_filter
+            )
+        except Exception as e:
+            print(f"Hybrid search failed: {e}")
+            results = []
         
-        # Step 3b: Case Law Search
-        case_laws = await self.search_service.search_case_laws(query, top_k=3)
-        results.extend(case_laws)
+        # Step 3b: Case Law Search (gracefully handle if table is empty or errors)
+        try:
+            case_laws = await self.search_service.search_case_laws(query, top_k=3)
+            results.extend(case_laws)
+        except Exception as e:
+            print(f"Case law search failed (table may be empty): {e}")
+            # Continue without case laws - not critical
         
         if not results:
             return RAGResponse(
-                answer="I couldn't find any relevant legal sections...",
+                answer="I couldn't find any relevant legal sections for your query. Please try rephrasing or using more specific legal terminology.",
                 citations=[],
                 query_intent=intent,
                 is_relevant=True
             )
             
         # Step 3c: Re-ranking
-        # Rerank to get best 7 results for context
-        reranked_results = await self.rerank_results(query, results, top_k=7)
+        # Rerank to get best 15 results for context
+        try:
+            reranked_results = await self.rerank_results(query, results, top_k=15)
+        except Exception as e:
+            print(f"Reranking failed, using original order: {e}")
+            reranked_results = results[:15]
         
         # Step 4: Format context and generate answer
         context, citations = self._format_context(reranked_results)
@@ -366,11 +374,6 @@ CONTEXT FROM LEGAL SECTIONS (Use if relevant):
             is_relevant=True
         )
 
-    async def compare_laws(self, query: str) -> dict:
-        """
-        Compare old vs new law provisions.
-        Returns structured data for frontend comparison view.
-        """
     async def compare_laws(self, query: str) -> dict:
         """
         Compare old vs new law provisions.
@@ -440,16 +443,19 @@ CONTEXT FROM LEGAL SECTIONS (Use if relevant):
             old_act_full = full_names.get(old_act_name, old_act_name)
             
             # Step 2: Retrieve New Law Text from DB
-            search_query = f"{new_act_name} Section {new_sec_num}"
-            results = await self.search_service.hybrid_search(search_query, top_k=1, act_filter=new_act_name)
-            
             new_text = ""
             new_title = ""
+            try:
+                search_query = f"{new_act_name} Section {new_sec_num}"
+                results = await self.search_service.hybrid_search(search_query, top_k=1, act_filter=new_act_name)
+                
+                if results and results[0].section_number == str(new_sec_num):
+                    new_text = results[0].content
+                    new_title = results[0].title or f"{new_act_name} {new_sec_num}"
+            except Exception as e:
+                print(f"DB lookup for new law failed: {e}")
             
-            if results and results[0].section_number == str(new_sec_num):
-                new_text = results[0].content
-                new_title = results[0].title or f"{new_act_name} {new_sec_num}"
-            else:
+            if not new_text:
                 # Fallback: Ask LLM with specific context
                 gen_prompt = f"""Provide the verbatim statutory text of Section {new_sec_num} of the {new_act_full}.
                 Do not add introductory text. Just provide the section title and content.
@@ -534,4 +540,6 @@ CONTEXT FROM LEGAL SECTIONS (Use if relevant):
             
         except Exception as e:
             print(f"Comparison failed: {e}")
+            import traceback
+            traceback.print_exc()
             return None

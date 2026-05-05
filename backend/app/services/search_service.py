@@ -5,50 +5,60 @@ Hybrid search combining vector similarity and keyword matching.
 
 from typing import List, Optional
 from dataclasses import dataclass
-from sqlalchemy import select, func, text, or_
+from sqlalchemy import select, func, text, or_, and_
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import Section, Act, CaseLaw
 from app.services.embedding_service import get_embedding_service
 
-# Map common legal terms to relevant IPC/BNS section numbers for boosted retrieval
+# Map common legal terms to specific (Act, Section) tuples for boosted retrieval
 # This ensures queries like "murder" or "robbery" return the correct sections
 LEGAL_TERM_BOOST = {
     # Murder / Homicide
-    "murder": ["302", "300", "299", "103", "101"],  # IPC 302, BNS 103
-    "homicide": ["299", "300", "302", "101", "103"],
-    "culpable homicide": ["299", "300", "101"],
-    "death penalty": ["302", "303", "103"],
+    "murder": [("IPC", "302"), ("IPC", "300"), ("IPC", "299"), ("BNS", "103"), ("BNS", "101")],
+    "homicide": [("IPC", "299"), ("IPC", "300"), ("IPC", "302"), ("BNS", "101"), ("BNS", "103")],
+    "culpable homicide": [("IPC", "299"), ("IPC", "300"), ("BNS", "101")],
+    "death penalty": [("IPC", "302"), ("IPC", "303"), ("BNS", "103")],
     
     # Robbery / Theft
-    "robbery": ["390", "391", "392", "309"],  # IPC 390-392, BNS 309
-    "theft": ["378", "379", "380", "303", "304"],  # IPC 378-380, BNS 303
-    "dacoity": ["391", "395", "396", "310", "311"],  # IPC 391, 395-396
+    "robbery": [("IPC", "390"), ("IPC", "391"), ("IPC", "392"), ("BNS", "309")],
+    "theft": [("IPC", "378"), ("IPC", "379"), ("IPC", "380"), ("BNS", "303"), ("BNS", "304")],
+    "dacoity": [("IPC", "391"), ("IPC", "395"), ("IPC", "396"), ("BNS", "310"), ("BNS", "311")],
     
     # Assault / Hurt
-    "assault": ["351", "352", "353", "130", "131", "132"],
-    "grievous hurt": ["320", "325", "326", "117", "118"],
-    "hurt": ["319", "321", "323", "324", "115", "116"],
+    "assault": [("IPC", "351"), ("IPC", "352"), ("IPC", "353"), ("BNS", "130"), ("BNS", "131"), ("BNS", "132")],
+    "grievous hurt": [("IPC", "320"), ("IPC", "325"), ("IPC", "326"), ("BNS", "117"), ("BNS", "118")],
+    "hurt": [("IPC", "319"), ("IPC", "321"), ("IPC", "323"), ("IPC", "324"), ("BNS", "115"), ("BNS", "116")],
     
     # Sexual Offences
-    "rape": ["375", "376", "63", "64", "65"],  # IPC 375-376, BNS 63-65
-    "sexual assault": ["354", "354A", "74", "75"],
+    "rape": [("IPC", "375"), ("IPC", "376"), ("BNS", "63"), ("BNS", "64"), ("BNS", "65")],
+    "sexual assault": [("IPC", "354"), ("IPC", "354A"), ("BNS", "74"), ("BNS", "75")],
     
     # Cheating / Fraud
-    "cheating": ["415", "417", "420", "318", "319"],
-    "fraud": ["415", "420", "318"],
-    "forgery": ["463", "464", "465", "336", "337"],
+    "cheating": [("IPC", "415"), ("IPC", "417"), ("IPC", "420"), ("BNS", "318"), ("BNS", "319")],
+    "fraud": [("IPC", "415"), ("IPC", "420"), ("BNS", "318")],
+    "forgery": [("IPC", "463"), ("IPC", "464"), ("IPC", "465"), ("BNS", "336"), ("BNS", "337")],
     
     # Kidnapping
-    "kidnapping": ["359", "360", "361", "137", "138"],
-    "abduction": ["362", "363", "139", "140"],
+    "kidnapping": [("IPC", "359"), ("IPC", "360"), ("IPC", "361"), ("BNS", "137"), ("BNS", "138")],
+    "abduction": [("IPC", "362"), ("IPC", "363"), ("BNS", "139"), ("BNS", "140")],
     
     # Defamation
-    "defamation": ["499", "500", "356"],
+    "defamation": [("IPC", "499"), ("IPC", "500"), ("BNS", "356")],
     
     # Criminal Intimidation
-    "criminal intimidation": ["503", "506", "351"],
-    "extortion": ["383", "384", "385", "306", "307"],
+    "criminal intimidation": [("IPC", "503"), ("IPC", "506"), ("BNS", "351")],
+    "extortion": [("IPC", "383"), ("IPC", "384"), ("IPC", "385"), ("BNS", "306"), ("BNS", "307")],
+
+    # Procedure (CrPC / BNSS)
+    "fir": [("CrPC", "154"), ("BNSS", "173")],
+    "first information report": [("CrPC", "154"), ("BNSS", "173")],
+    "charge sheet": [("CrPC", "173"), ("BNSS", "193"), ("BNSS", "183")],
+    "police report": [("CrPC", "173"), ("BNSS", "193")],
+    "arrest": [("CrPC", "41"), ("CrPC", "46"), ("BNSS", "35"), ("BNSS", "43")],
+    "bail": [("CrPC", "436"), ("CrPC", "437"), ("CrPC", "439"), ("BNSS", "478"), ("BNSS", "480"), ("BNSS", "482")],
+    "anticipatory bail": [("CrPC", "438"), ("BNSS", "482")],
+    "remand": [("CrPC", "167"), ("BNSS", "187")],
 }
 
 
@@ -271,13 +281,21 @@ class SearchService:
         # Check if query contains any legal terms that should force-include specific sections
         query_lower = query.lower()
         boosted_sections = set()
-        for term, section_numbers in LEGAL_TERM_BOOST.items():
+        for term, section_tuples in LEGAL_TERM_BOOST.items():
             if term in query_lower:
-                boosted_sections.update(section_numbers)
+                boosted_sections.update(section_tuples)
         
         # Fetch boosted sections directly from database
         if boosted_sections:
-            boost_conditions = [Section.section_number.in_(list(boosted_sections))]
+            tuple_conditions = []
+            for act_code, sec_num in boosted_sections:
+                tuple_conditions.append(
+                    and_(
+                        Act.short_name.ilike(act_code),
+                        Section.section_number == sec_num
+                    )
+                )
+            boost_conditions = [or_(*tuple_conditions)]
             if act_filter:
                 boost_conditions.append(
                     or_(
@@ -340,35 +358,40 @@ class SearchService:
         top_k: int = 3
     ) -> List[SearchResult]:
         """Search for relevant case laws using vector similarity."""
-        query_embedding = self.embedding_service.embed(query)
-        
-        stmt = (
-            select(
-                CaseLaw.id,
-                CaseLaw.title,
-                CaseLaw.content,
-                CaseLaw.court_name,
-                CaseLaw.judgment_date,
-                (1 - CaseLaw.embedding.cosine_distance(query_embedding)).label("similarity")
+        try:
+            query_embedding = self.embedding_service.embed(query)
+            
+            stmt = (
+                select(
+                    CaseLaw.id,
+                    CaseLaw.title,
+                    CaseLaw.content,
+                    CaseLaw.court_name,
+                    CaseLaw.judgment_date,
+                    (1 - CaseLaw.embedding.cosine_distance(query_embedding)).label("similarity")
+                )
+                .where(CaseLaw.embedding.isnot(None))
+                .order_by(CaseLaw.embedding.cosine_distance(query_embedding))
+                .limit(top_k)
             )
-            .where(CaseLaw.embedding.isnot(None))
-            .order_by(CaseLaw.embedding.cosine_distance(query_embedding))
-            .limit(top_k)
-        )
-        
-        result = await self.session.execute(stmt)
-        rows = result.fetchall()
-        
-        return [
-            SearchResult(
-                section_id=row.id,
-                act_name=row.court_name or "Unknown Court",
-                act_short_name="CASE",
-                section_number="N/A",
-                title=row.title,
-                content=row.content,
-                chapter_number=str(row.judgment_date) if row.judgment_date else None,
-                similarity_score=float(row.similarity) if row.similarity else 0.0
-            )
-            for row in rows
-        ]
+            
+            result = await self.session.execute(stmt)
+            rows = result.fetchall()
+            
+            return [
+                SearchResult(
+                    section_id=row.id,
+                    act_name=row.court_name or "Unknown Court",
+                    act_short_name="CASE",
+                    section_number="N/A",
+                    title=row.title,
+                    content=row.content,
+                    chapter_number=str(row.judgment_date) if row.judgment_date else None,
+                    similarity_score=float(row.similarity) if row.similarity else 0.0
+                )
+                for row in rows
+            ]
+        except Exception as e:
+            print(f"Case law search error (table may be empty): {e}")
+            return []
+

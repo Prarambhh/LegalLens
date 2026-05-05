@@ -28,9 +28,9 @@ class EmbeddingService:
     
     def __init__(self):
         if EmbeddingService._model is None:
-            print(f"📦 Loading embedding model: {settings.embedding_model}")
+            print(f"[*] Loading embedding model: {settings.embedding_model}")
             EmbeddingService._model = SentenceTransformer(settings.embedding_model)
-            print(f"✅ Model loaded. Dimension: {self.dimension}")
+            print(f"[OK] Model loaded. Dimension: {self.dimension}")
     
     @property
     def model(self) -> SentenceTransformer:
